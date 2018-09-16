@@ -1,0 +1,107 @@
+/*creted by leamug*/
+body{
+	background-image: url('../images/background.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
+}
+.btn-success
+{
+	transition: 0.5s;
+}
+
+.btn-success:hover, .btn-success:focus
+{
+	background: white;
+	border-color: #5cb85c;
+	color: black;
+	transition: all 0.4s;
+}
+.panel-body {
+	padding: 45px!important;
+}
+.btn-warning
+{
+	transition: 0.5s;
+}
+.panel-info > .panel-heading {
+	background-color: #7CB13F!important;
+	border-color: #7CB13F!important;
+}
+.glyphicon {
+	color:#7CB13F!important;
+}
+.nav-tabs > li > a {
+	border-radius: 4px 4px 0 0;
+	color: white;
+	text-transform: uppercase;
+	font-weight: 600;
+	border: 1px solid aliceblue;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-top-color: aliceblue;
+	border-right-color: aliceblue;
+	border-bottom-color: aliceblue;
+	border-left-color: aliceblue;
+	border-bottom: none;
+	border-bottom-color: currentcolor;
+}
+
+.panel{border: none!important;}
+.btn-warning:hover, .btn-warning:focus
+{
+	background: white;
+	color: black;
+	border-color: #f0ad4e;
+}
+
+.panel.with-nav-tabs .nav-tabs
+{
+	border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified
+{
+	margin-bottom: -4px;
+}
+
+.panel
+{
+	margin: 7%;
+}
+
+.modal-header
+{
+	background: #7CB13F;
+	color: white;
+	text-align: center;
+}
+
+.input-group-addon
+{
+	background-color: #5cb85c;
+	color: white;
+}
+
+.iga1
+{
+	background-color: #f0ad4e;
+	color: white;
+}
+
+.iga2
+{
+	background-color: #FF3838;
+	color: white;
+}
+
+.flex-c-m {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+}
