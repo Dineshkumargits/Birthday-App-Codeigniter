@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <title>Login/Signup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link href="<?php echo base_url('assets'); ?>css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets'); ?>fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets'); ?>fonts/iconic/css/material-design-iconic-font.min.css">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -15,14 +15,33 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel with-nav-tabs panel-info">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel with-nav-tabs panel-info login-panel panel panel-success">
                 <div class="panel-heading">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#login" data-toggle="tab"> Login </a></li>
                         <li><a href="#signup" data-toggle="tab"> Signup </a></li>
                     </ul>
                 </div>
+                <?php
+              $success_msg= $this->session->flashdata('success_msg');
+              $error_msg= $this->session->flashdata('error_msg');
+
+                  if($success_msg){
+                    ?>
+                    <div class="alert alert-success">
+                      <?php echo $success_msg; ?>
+                    </div>
+                  <?php
+                  }
+                  if($error_msg){
+                    ?>
+                    <div class="alert alert-danger">
+                      <?php echo $error_msg; ?>
+                    </div>
+                    <?php
+                  }
+                  ?>
                 <!--panel body-->
                 <div class="panel-body">
                     <div class="tab-content">
@@ -30,15 +49,15 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <h2 class="text-center" style="color: #5cb85c;"> <strong> Login  </strong></h2>
-                                    <form action="$" method="post">
+                                    <form role="form" action="<?php echo base_url('user/login_user'); ?>" method="post">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <div class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-user"></span>
+                                                        <span class="glyphicon glyphicon-envelope"></span>
                                                     </div>
-                                                    <input type="text" placeholder="User Name" name="username" class="form-control">
+                                                    <input type="email" placeholder="E-mail" name="user_email" class="form-control" autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -52,7 +71,7 @@
                                                         <span class="glyphicon glyphicon-lock"></span>
                                                     </div>
 
-                                                    <input type="password" placeholder="Password" name="password" class="form-control">
+                                                    <input type="password" placeholder="Password" name="user_password" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +93,7 @@
                                     <hr />
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <button type="submit" class="btn btn-success btn-block btn-lg"> Login </button>
+                                            <button type="submit" class="btn btn-success btn-block btn-lg" name="login"> Login </button>
                                         </div>
                                     </div>
                                   </form>
@@ -86,7 +105,13 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <h2 class="text-center" style="color: #f0ad4e;"> <Strong> Register </Strong></h2> <hr />
-                                    <form  action="#" method="post">
+                                    <?php
+                                    $error_msg=$this->session->flashdata('error_msg');
+                                    if($error_msg){
+                                      echo $error_msg;
+                                    }
+                                     ?>
+                                    <form  role="form" action="<?php echo base_url('user/register_user'); ?>" method="post">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
@@ -94,7 +119,7 @@
                                                     <div class="input-group-addon iga1">
                                                         <span class="glyphicon glyphicon-user"></span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Enter User Name" name="name">
+                                                    <input type="text" class="form-control" placeholder="Enter User Name" name="user_name" autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +132,7 @@
                                                     <div class="input-group-addon iga1">
                                                         <span class="glyphicon glyphicon-envelope"></span>
                                                     </div>
-                                                    <input type="email" class="form-control" placeholder="Enter E-Mail" name="mail">
+                                                    <input type="email" class="form-control" placeholder="Enter E-Mail" name="user_email" autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -120,7 +145,33 @@
                                                     <div class="input-group-addon iga1">
                                                         <span class="glyphicon glyphicon-lock"></span>
                                                     </div>
-                                                    <input type="password" class="form-control" placeholder="Enter Password" name="pass">
+                                                    <input type="password" class="form-control" placeholder="Enter Password" name="user_password" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon iga1">
+                                                        <span class="glyphicon glyphicon-envelope"></span>
+                                                    </div>
+                                                    <input type="number" class="form-control" placeholder="Enter Age" name="user_age" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon iga1">
+                                                        <span class="glyphicon glyphicon-envelope"></span>
+                                                    </div>
+                                                    <input type="number" class="form-control" placeholder="Enter Mobile_No" name="user_mobile" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -213,4 +264,69 @@
     </div>
 </div>
 </body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
+  </head>
+  <body>
+
+    <div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login</h3>
+                </div>
+                <?php
+              $success_msg= $this->session->flashdata('success_msg');
+              $error_msg= $this->session->flashdata('error_msg');
+
+                  if($success_msg){
+                    ?>
+                    <div class="alert alert-success">
+                      <?php echo $success_msg; ?>
+                    </div>
+                  <?php
+                  }
+                  if($error_msg){
+                    ?>
+                    <div class="alert alert-danger">
+                      <?php echo $error_msg; ?>
+                    </div>
+                    <?php
+                  }
+                  ?>
+
+                <div class="panel-body">
+                    <form role="form" method="post" action="<?php echo base_url('user/login_user'); ?>">
+                        <fieldset>
+                            <div class="form-group"  >
+                                <input class="form-control" placeholder="E-mail" name="user_email" type="email" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Password" name="user_password" type="password" value="">
+                            </div>
+
+
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="login" name="login" >
+
+                        </fieldset>
+                    </form>
+                <center><b>Not registered ?</b> <br></b><a href="<?php echo base_url('user'); ?>">Register here</a></center><!--for centered text-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  </body>
 </html>
