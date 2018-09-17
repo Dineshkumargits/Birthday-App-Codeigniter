@@ -1,3 +1,9 @@
+<?php
+if (isset($this->session->userdata['user_id'])) {
+redirect('user/user_profile');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +54,7 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <h2 class="text-center" style="color: #5cb85c;"> <strong> Login  </strong></h2>
+                                    <?php echo validation_errors('<div class="alert alert-danger">','</div>'); ?>
                                     <form role="form" action="<?php echo base_url('user/login_user'); ?>" method="post">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
