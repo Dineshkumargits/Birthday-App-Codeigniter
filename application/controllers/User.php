@@ -126,6 +126,25 @@ public function user_logout(){
   redirect('user', 'refresh');
 }
 
+public function add_user(){
+  $user=array(
+  'user_name'=>$this->input->post('user_name'),
+  'user_email'=>$this->input->post('user_email'),
+  'user_password'=>md5($this->input->post('user_password')),
+  'user_age'=>$this->input->post('user_age'),
+  'user_mobile'=>$this->input->post('user_mobile')
+    );
+    $email_check=$this->user_model->email_check($user['user_email']);
+
+    if($email_check){
+    $this->user_model->register_user($user);
+    echo "OK";
+    }
+    else{
+      echo "<script>alert('Email already taken')</script>";
+    }
+}
+
 }
 
 ?>

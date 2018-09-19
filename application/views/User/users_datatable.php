@@ -2,19 +2,35 @@
 <html>
 <head>
 	<title>Datatable</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
+<style media="screen">
+.glyphicon {
+	color:#7CB13F!important;
+}
+.panel-body {
+	padding: 45px!important;
+}
+.panel-info > .panel-heading {
+	background-color: #7CB13F!important;
+	border-color: #7CB13F!important;
+}
+</style>
 </head>
 <body>
 
 
 <div class="container">
-	<h2>Datatable</h2>
-
-
+	<div class="row">
+  	<div class="col-lg-12 margin-tb">
+  	  <div class="pull-left">
+  	    <h2>Datatable</h2>
+  	  </div>
+			<div class="clearfix"></div>
+  	  <div class="pull-right">
+  	    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create-item"> Create User</button>
+  	  </div>
+  	</div>
+</div>
 	<table id="item-list" class="table table-bordered table-striped table-hover">
 		<thead>
 			<tr>
@@ -23,6 +39,7 @@
 				<th>Email</th>
         <th>Age</th>
         <th>Mobile</th>
+				<th width="200px">Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,9 +47,106 @@
 
 		</tbody>
 	</table>
+	<!-- Create Item Model -->
+	<div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create User</h4>
+      </div>
+      <div class="modal-body">
+            <form data-toggle="validator" id="add_user" action="" name="add_user">
+							<div class="form-group">
+									<div class="input-group">
+											<div class="input-group-addon iga1">
+													<span class="glyphicon glyphicon-user"></span>
+											</div>
+											<input type="text" class="form-control" placeholder="Enter User Name" name="user_name" data-error="Please enter UserName." required autofocus>
+									</div>
+									<div class="help-block with-errors"></div>
+							</div>
+								<div class="form-group">
+										<div class="input-group">
+												<div class="input-group-addon iga1">
+														<span class="glyphicon glyphicon-lock"></span>
+												</div>
+												<input type="password" class="form-control" placeholder="Enter Password" name="user_password" value="" data-error="Please enter UserName." required>
+										</div>
+										<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group">
+										<div class="input-group">
+												<div class="input-group-addon iga1">
+														<span class="glyphicon glyphicon-envelope"></span>
+												</div>
+												<input type="email" class="form-control" placeholder="Enter E-Mail" name="user_email" data-error="Please enter UserName." required autofocus>
+										</div>
+										<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group">
+										<div class="input-group">
+												<div class="input-group-addon iga1">
+														<span class="glyphicon glyphicon-heart-empty"></span>
+												</div>
+												<input type="number" class="form-control" placeholder="Enter Age" name="user_age" value="">
+										</div>
+										<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group">
+										<div class="input-group">
+												<div class="input-group-addon iga1">
+														<span class="glyphicon glyphicon-phone"></span>
+												</div>
+												<input type="number" class="form-control" placeholder="Enter Mobile_No" name="user_mobile" value="" data-error="Please enter description." required>
+										</div>
+										<div class="help-block with-errors"></div>
+								</div>
+                <div class="form-group">
+                    <button type="submit" class="btn crud-submit btn-success">Submit</button>
+                </div>
+            </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-
+<!-- Edit Item Model -->
+<div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Item</h4>
+      </div>
+      <div class="modal-body">
+            <form data-toggle="validator" action="" method="put">
+                <div class="form-group">
+                    <label class="control-label" for="title">Title:</label>
+                    <input type="text" name="title" class="form-control" data-error="Please enter title." required />
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="title">Description:</label>
+                    <textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success crud-submit-edit">Submit</button>
+                </div>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- scripts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+<!-- DropDown -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
 </body>
 
 
@@ -86,6 +200,29 @@ var myTable;
             }
         });
     }
+</script>
+<script>
+  $(function () {
+
+    $('#add_user').on('submit', function (e) {
+
+      e.preventDefault();
+
+      $.ajax({
+        type: 'post',
+        url: '<?php echo base_url('user/add_user'); ?>',
+        data: $('#add_user').serialize(),
+        success: function (msg) {
+					if(msg == "OK")
+          alert('form was submitted');
+					else
+					alert('Email already exists');
+        }
+      });
+
+    });
+
+  });
 </script>
 
 
