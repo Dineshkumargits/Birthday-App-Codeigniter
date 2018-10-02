@@ -5,6 +5,7 @@ class User_model extends CI_model{
 
 
     $this->db->insert('user', $user);
+    return true;
 
     }
     public function login_user($email,$pass){
@@ -37,6 +38,13 @@ class User_model extends CI_model{
         return true;
       }
 
+    }
+
+
+    public function remove_user($id){
+       $this->db->where('id', $id);
+       $this->db->delete('user');
+       return true;
     }
 }
 

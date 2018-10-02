@@ -94,3 +94,7 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+// 	'username' => 'adkcrackers_skills',
+// 	'password' => 'adkcrackers_skills',
+// 'database' => 'adkcrackers_skills',

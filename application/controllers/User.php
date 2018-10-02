@@ -23,7 +23,7 @@ public function register_user(){
   $this->form_validation->set_rules('user_name', 'Username', 'trim|required');
   $this->form_validation->set_rules('user_email', 'Email', 'trim|required');
   $this->form_validation->set_rules('user_password', 'Password', 'trim|required');
-  $this->form_validation->set_rules('user_age', 'Age', 'trim|required');
+  // $this->form_validation->set_rules('user_age', 'Age', 'trim|required');
   $this->form_validation->set_rules('user_mobile', 'Mobile', 'trim|required');
 
   if ($this->form_validation->run() == FALSE) {
@@ -33,7 +33,7 @@ public function register_user(){
   'user_name'=>$this->input->post('user_name'),
   'user_email'=>$this->input->post('user_email'),
   'user_password'=>md5($this->input->post('user_password')),
-  'user_age'=>$this->input->post('user_age'),
+  // 'user_age'=>$this->input->post('user_age'),
   'user_mobile'=>$this->input->post('user_mobile')
     );
 
@@ -74,7 +74,7 @@ function login_user(){
         $this->session->set_userdata('user_id',$data['user_id']);
         $this->session->set_userdata('user_email',$data['user_email']);
         $this->session->set_userdata('user_name',$data['user_name']);
-        $this->session->set_userdata('user_age',$data['user_age']);
+        // $this->session->set_userdata('user_age',$data['user_age']);
         $this->session->set_userdata('user_mobile',$data['user_mobile']);
 
         $this->load->view('User/user_profile.php');
@@ -109,7 +109,7 @@ public function get_items()
                'Id'=>$r->user_id,
                'Name'=>$r->user_name,
                'Email'=>$r->user_email,
-               'Age'=>$r->user_age,
+              //  'Age'=>$r->user_age,
                'Mobile'=>$r->user_mobile
           );
      }
@@ -131,7 +131,7 @@ public function add_user(){
   'user_name'=>$this->input->post('user_name'),
   'user_email'=>$this->input->post('user_email'),
   'user_password'=>md5($this->input->post('user_password')),
-  'user_age'=>$this->input->post('user_age'),
+  // 'user_age'=>$this->input->post('user_age'),
   'user_mobile'=>$this->input->post('user_mobile')
     );
     $email_check=$this->user_model->email_check($user['user_email']);
@@ -143,6 +143,50 @@ public function add_user(){
     else{
       echo "<script>alert('Email already taken')</script>";
     }
+}
+
+public function remove_user($id){
+  // $id = $this->input->post('id');
+  $remove = $this->user_model->remove_user($id);
+  if ($remove) {
+    echo "OK";
+  }
+}
+
+public function react_register(){
+  $json = json_decode(file_get_contents('php://input'),true);
+
+  $user = array(
+    'user_name'=>$json['user_name'],
+    'user_email'=>$json['email'],
+    'user_password'=>md5($json['password']),
+    'user_mobile'=>$json['ph_no']
+  );
+  $email_check = $this->user_model->email_check($user['user_email']);
+  if($email_check){
+    echo json_encode('Email already exists');
+  }else{
+  $login = $this->user_model->register_user($user);
+  if($login){
+    echo json_encode('Register Successful');
+  }else{
+    echo json_encode('error');
+  }
+  }
+}
+
+public function react_login(){
+  $json = json_decode(file_get_contents('php://input'),true);
+  $user = array(
+    'user_email'=>$json['email'],
+    'user_password'=>md5($json['password'])
+  );
+  $login = $this->user_model->login_user($user['user_email'],$user['user_password']);
+  if($login){
+    echo json_encode("Login Successful");
+  }else{
+    echo json_encode("Authentication Credentials are mismatched");
+  }
 }
 
 }

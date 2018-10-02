@@ -39,7 +39,7 @@
 				<th>Email</th>
         <th>Age</th>
         <th>Mobile</th>
-				<th width="200px">Action</th>
+				<th width="180px">Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -116,22 +116,42 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit Item</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit User</h4>
       </div>
       <div class="modal-body">
             <form data-toggle="validator" action="" method="put">
                 <div class="form-group">
-                    <label class="control-label" for="title">Title:</label>
-                    <input type="text" name="title" class="form-control" data-error="Please enter title." required />
+                    <label class="control-label" for="title">Email:</label>
+										<div class="input-group">
+												<div class="input-group-addon iga1">
+														<span class="glyphicon glyphicon-envelope"></span>
+												</div>
+												<input type="email" class="form-control" placeholder="Enter E-Mail" name="user_email" data-error="Please enter UserName." required autofocus>
+										</div>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="title">Description:</label>
-                    <textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
+                    <label class="control-label" for="title">Age:</label>
+										<div class="input-group">
+												<div class="input-group-addon iga1">
+														<span class="glyphicon glyphicon-heart-empty"></span>
+												</div>
+												<input type="number" class="form-control" placeholder="Enter Age" name="user_age" value="">
+										</div>
                     <div class="help-block with-errors"></div>
                 </div>
+								<div class="form-group">
+									<label class="control-label" for="title">Mobile_No:</label>
+										<div class="input-group">
+												<div class="input-group-addon iga1">
+														<span class="glyphicon glyphicon-phone"></span>
+												</div>
+												<input type="number" class="form-control" placeholder="Enter Mobile_No" name="user_mobile" value="" data-error="Please enter description." required>
+										</div>
+										<div class="help-block with-errors"></div>
+								</div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success crud-submit-edit">Submit</button>
+                    <button type="submit" class="btn btn-success crud-submit-edit">Update</button>
                 </div>
             </form>
       </div>
@@ -154,10 +174,10 @@
 
 var myTable;
 
-    $(document).ready(function () {
+    $(document).ready(function (e) {
+			// e.preventDefault();
         BindItemTable();
         PopulateItemsTable();
-
     });
 
     function BindItemTable() {
@@ -175,12 +195,13 @@ var myTable;
 
     function PopulateItemsTable() {
         $.ajax({
-            type: "GET",
+            type: 'post',
             url: "<?php echo base_url('user/get_items');?>",
             contentType: "application/json; charset=utf-8",
             // dataType: "json",
             success: function (response) {
 							console.log(response);
+
                 var jsonObject = JSON.parse(response);
                 var result = jsonObject.map(function (item) {
                     var result = [];
@@ -189,7 +210,8 @@ var myTable;
                     result.push(item.Email);
                     result.push(item.Age);
                     result.push(item.Mobile);
-                    // result.push("");
+                    result.push('<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Edit</button>&nbsp;<button class="btn btn-danger remove-item">Delete</button>');
+										// result.push('<button class="btn btn-danger remove-item">Delete</button>');l
                     return result;
                 });
                 myTable.rows.add(result);
@@ -206,15 +228,17 @@ var myTable;
 
     $('#add_user').on('submit', function (e) {
 
-      e.preventDefault();
+      // e.preventDefault();
 
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('user/add_user'); ?>',
         data: $('#add_user').serialize(),
         success: function (msg) {
-					if(msg == "OK")
-          alert('form was submitted');
+					if(msg == "OK"){
+					  alert('form was submitted');
+						PopulateItemsTable();
+					}
 					else
 					alert('Email already exists');
         }
@@ -223,6 +247,21 @@ var myTable;
     });
 
   });
+
+/* Remove Item */
+$(function (){
+	$("body").on("click",".remove-item",function(){
+	    var id = $(this).parent("td").data('id');
+	    var c_obj = $(this).parents("tr");
+	    $.ajax({
+	        dataType: 'json',
+	        type:'delete',
+	        url: '<?= base_url('user/remove_user');?>' + '/' + id,
+	    }).done(function(data){
+	        c_obj.remove();
+	    });
+	});
+});
 </script>
 
 

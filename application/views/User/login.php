@@ -157,7 +157,7 @@ redirect('user/user_profile');
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="input-group">
@@ -168,7 +168,7 @@ redirect('user/user_profile');
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
