@@ -163,7 +163,7 @@ public function react_register(){
     'user_mobile'=>$json['ph_no']
   );
   $email_check = $this->user_model->email_check($user['user_email']);
-  if($email_check){
+  if(!$email_check){
     echo json_encode('Email already exists');
   }else{
   $login = $this->user_model->register_user($user);
